@@ -1,0 +1,31 @@
+{namespace h=Alm\AlmClearlog\ViewHelpers}
+
+<f:layout name="Backend" />
+
+<f:section name="functions">
+</f:section>
+
+<f:section name="buttons">
+</f:section>
+
+<f:section name="content">
+	<h1><img src="{f:uri.resource(path:'Icons/alm_clearlog.png')}" class="img-rounded" height="64" width="64"> {f:translate(key: 'mod.header')} <small>({f:translate(key: 'mod.subheader')})</small></h1>
+
+	<div class="row">
+		<f:for each="{tableInfo}" as="row" key="name">
+			<div class="col-lg-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default <f:if condition="{row.rows} > 0">panel-danger</f:if>">
+  					<div class="panel-heading">{name}</div>
+  					<div class="panel-body">
+  						<div>{f:translate(key: 'mod.rowcount')}: {row.rows}</div>
+  						<div>{f:translate(key: 'mod.size')}: {row.size}</div>
+  					</div>
+				</div>
+			</div>
+		</f:for>
+	</div>
+
+	<f:link.action action="clear" class="btn btn-danger" title="{f:translate(key: 'mod.actionclear')}">
+		<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actionclear')}
+	</f:link.action>
+</f:section>
