@@ -52,13 +52,27 @@ class ClearlogModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->view->assign('tableInfo', $tableInfo);
     }
 
+    
+	/**
+     * ClearTable Action
+     *
+     * @param string $tableName
+     * @return void
+     */
+    protected function clearTableAction($tableName)
+    {
+		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE TABLE ' . $tableName);
 
+    	$this->redirect('index');
+    }
+    
+    
     /**
-     * Clear Action
+     * ClearAll Action
      *
      * @return void
      */
-    protected function clearAction()
+    protected function clearAllAction()
     {
     	foreach($this->clearTablesArray as $key => $value)
     	{

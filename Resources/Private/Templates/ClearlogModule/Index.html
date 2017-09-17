@@ -17,15 +17,24 @@
 				<div class="panel panel-default <f:if condition="{row.rows} > 0">panel-danger</f:if>">
   					<div class="panel-heading">{name}</div>
   					<div class="panel-body">
-  						<div>{f:translate(key: 'mod.rowcount')}: {row.rows}</div>
-  						<div>{f:translate(key: 'mod.size')}: {row.size}</div>
+  						<div<f:if condition="{row.rows} > 0"> class="pull-left"</f:if>>
+  							<div>{f:translate(key: 'mod.rowcount')}: {row.rows}</div>
+  							<div>{f:translate(key: 'mod.size')}: {row.size}</div>
+  						</div>
+  						<f:if condition="{row.rows} > 0">
+  							<div class="pull-right">
+  								<f:link.action action="clearTable" arguments="{tableName: name}" class="btn btn-sm btn-danger" title="{f:translate(key: 'mod.actioncleartable')}">
+									<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actioncleartable')}
+								</f:link.action>
+  							</div>
+  						</f:if>
   					</div>
 				</div>
 			</div>
 		</f:for>
 	</div>
 
-	<f:link.action action="clear" class="btn btn-danger" title="{f:translate(key: 'mod.actionclear')}">
-		<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actionclear')}
+	<f:link.action action="clearAll" class="btn btn-danger" title="{f:translate(key: 'mod.actionclearall')}">
+		<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actionclearall')}
 	</f:link.action>
 </f:section>

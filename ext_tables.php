@@ -12,7 +12,7 @@ if('BE' === TYPO3_MODE)
 		'clearlogModule',
 		'',
 		array(
-			'ClearlogModule' => 'index,clear',
+			'ClearlogModule' => 'index,clearTable,clearAll',
 		),
 		array(
 			'access' => 'user,group',

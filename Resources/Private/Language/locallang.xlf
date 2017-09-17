@@ -27,8 +27,11 @@
 			<trans-unit id="mod.size" xml:space="preserve">
 				<source>Size (KB)</source>
 			</trans-unit>
-			<trans-unit id="mod.actionclear" xml:space="preserve">
-				<source>Clear Tables (be careful)</source>
+			<trans-unit id="mod.actioncleartable" xml:space="preserve">
+				<source>Clear Table (be careful)</source>
+			</trans-unit>
+			<trans-unit id="mod.actionclearall" xml:space="preserve">
+				<source>Clear All Tables (be careful)</source>
 			</trans-unit>
 		</body>
 	</file>
