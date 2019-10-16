@@ -15,16 +15,16 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Clear DB Tables',
 	'category' => 'be',
 	'author' => 'Andi Platen',
-	'author_email' => 'info@wireframe.de',
+	'author_email' => 'info@code-department.de',
 	'state' => 'stable',
 	'internal' => '',
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '1.2.0',
+	'version' => '1.3.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-8.7.99',
+			'typo3' => '7.6.0-9.5.99',
 		),
 		'conflicts' => array(
 		),

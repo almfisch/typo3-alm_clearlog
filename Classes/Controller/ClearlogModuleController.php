@@ -30,29 +30,32 @@ class ClearlogModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
     {
     	$tableInfo = array();
 
-    	$result = $GLOBALS['TYPO3_DB']->sql_query('SHOW TABLE STATUS');
-		while($row = mysqli_fetch_array($result))
-		{
-			if(in_array($row['Name'], $this->clearTablesArray))
+        $table = $this->clearTablesArray[0];
+        $query = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable($table);
+        $result = $query->fetchAll('SHOW TABLE STATUS');
+
+
+        foreach($result as $row)
+        {
+        	if(in_array($row['Name'], $this->clearTablesArray))
 			{
     			$tableSize = ($row['Data_length'] + $row['Index_length']) / 1024;
     			$tableInfo[$row['Name']]['size'] = sprintf("%.2f", $tableSize);
     		}
-		}
-		$GLOBALS['TYPO3_DB']->sql_free_result($result);
-
-		foreach($this->clearTablesArray as $key => $value)
+        }
+        foreach($this->clearTablesArray as $table)
     	{
-    		$result = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', $value, '');
-			$tableRowCount = $GLOBALS['TYPO3_DB']->sql_num_rows($result);
-			$tableInfo[$value]['rows'] = $tableRowCount;
-			$GLOBALS['TYPO3_DB']->sql_free_result($result);
+    		$query = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
+            $query->count('*');
+            $query->from($table);
+            $result = $query->execute()->fetchColumn(0);
+    		$tableInfo[$table]['rows'] = $result;
     	}
 
 		$this->view->assign('tableInfo', $tableInfo);
     }
 
-    
+
 	/**
      * ClearTable Action
      *
@@ -61,12 +64,19 @@ class ClearlogModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      */
     protected function clearTableAction($tableName)
     {
-		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE TABLE ' . $tableName);
+		if($tableName == 'sys_file_processedfile')
+		{
+			$processedFileRep = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\ProcessedFileRepository::class);
+        	$processedFileRep->removeAll();
+		}
+
+		$query = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable($tableName);
+		$query->truncate($tableName);
 
     	$this->redirect('index');
     }
-    
-    
+
+
     /**
      * ClearAll Action
      *
@@ -74,9 +84,16 @@ class ClearlogModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      */
     protected function clearAllAction()
     {
-    	foreach($this->clearTablesArray as $key => $value)
+    	foreach($this->clearTablesArray as $table)
     	{
-    		$GLOBALS['TYPO3_DB']->sql_query('TRUNCATE TABLE ' . $value);
+    		if($table == 'sys_file_processedfile')
+		    {
+                $processedFileRep = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\ProcessedFileRepository::class);
+                $processedFileRep->removeAll();
+            }
+
+    		$query = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable($table);
+    		$query->truncate($table);
     	}
 
     	$this->redirect('index');
