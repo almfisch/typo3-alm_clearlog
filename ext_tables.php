@@ -7,7 +7,7 @@ if(!defined('TYPO3_MODE'))
 if('BE' === TYPO3_MODE)
 {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-		'Alm.' . $_EXTKEY,
+		'Alm.alm_clearlog',
 		'tools',
 		'clearlogModule',
 		'',
@@ -16,8 +16,8 @@ if('BE' === TYPO3_MODE)
 		),
 		array(
 			'access' => 'user,group',
-			'icon' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/alm_clearlog.png',
-			'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang.xlf'
+			'icon' => 'EXT:alm_clearlog/Resources/Public/Icons/alm_clearlog.png',
+			'labels' => 'LLL:EXT:alm_clearlog/Resources/Private/Language/locallang.xlf'
 		)
 	);
 }
