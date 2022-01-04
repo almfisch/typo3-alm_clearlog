@@ -7,12 +7,12 @@ if(!defined('TYPO3_MODE'))
 if('BE' === TYPO3_MODE)
 {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-		'Alm.alm_clearlog',
+		'AlmClearlog',
 		'tools',
 		'clearlogModule',
 		'',
 		array(
-			'ClearlogModule' => 'index,clearTable,clearAll',
+			\Alm\AlmClearlog\Controller\ClearlogModuleController::class => 'index,clearTable,clearAll',
 		),
 		array(
 			'access' => 'user,group',
