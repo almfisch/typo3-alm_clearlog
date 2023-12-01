@@ -1,0 +1,13 @@
+{
+    "name": "alm/alm-clearlog",
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "alm_clearlog"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Alm\\AlmClearlog\\": "Classes/"
+        }
+    }
+}

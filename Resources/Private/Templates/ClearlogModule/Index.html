@@ -1,40 +1,46 @@
-{namespace h=Alm\AlmClearlog\ViewHelpers}
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
 
-<f:layout name="Backend" />
+	<f:layout name="Module" />
 
-<f:section name="functions">
-</f:section>
+	<f:section name="functions">
+	</f:section>
 
-<f:section name="buttons">
-</f:section>
+	<f:section name="buttons">
+	</f:section>
 
-<f:section name="content">
-	<h1><img src="{f:uri.resource(path:'Icons/alm_clearlog.png')}" class="img-rounded" height="64" width="64"> {f:translate(key: 'mod.header')} <small>({f:translate(key: 'mod.subheader')})</small></h1>
+	<f:section name="Content">
+		<h1><img src="{f:uri.resource(path:'Icons/alm_clearlog.png')}" class="img-rounded" height="64" width="64"> {f:translate(key: 'mod.header')} <small>({f:translate(key: 'mod.subheader')})</small></h1>
 
-	<div class="row">
-		<f:for each="{tableInfo}" as="row" key="name">
-			<div class="col-lg-4 col-sm-6 col-xs-12">
-				<div class="panel panel-default">
-					<div class="panel-heading <f:if condition="{row.rows} > 0">bg-danger text-white</f:if>">{name}</div>
-					<div class="panel-body">
-						<div<f:if condition="{row.rows} > 0"> class="pull-left"</f:if>>
-							<div>{f:translate(key: 'mod.rowcount')}: {row.rows}</div>
-							<div>{f:translate(key: 'mod.size')}: {row.size}</div>
-						</div>
-						<f:if condition="{row.rows} > 0">
-							<div class="pull-right">
-								<f:link.action action="clearTable" arguments="{tableName: name}" class="btn btn-sm btn-danger" title="{f:translate(key: 'mod.actioncleartable')}">
-									<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actioncleartable')}
-								</f:link.action>
+		<div class="row">
+			<f:for each="{tableInfo}" as="row" key="name">
+				<div class="col-lg-4 col-sm-6 col-xs-12">
+					<div class="panel panel-default">
+						<div class="panel-heading <f:if condition="{row.rows} > 0">bg-danger text-white</f:if>">{name}</div>
+						<div class="panel-body">
+							<div<f:if condition="{row.rows} > 0"> class="pull-left"</f:if>>
+								<div>{f:translate(key: 'mod.rowcount')}: {row.rows}</div>
+								<div>{f:translate(key: 'mod.size')}: {row.size}</div>
 							</div>
-						</f:if>
+							<f:if condition="{row.rows} > 0">
+								<div class="pull-right">
+									<f:link.action action="clearTable" arguments="{tableName: name}" class="btn btn-sm btn-danger" title="{f:translate(key: 'mod.actioncleartable')}">
+										<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actioncleartable')}
+									</f:link.action>
+								</div>
+							</f:if>
+						</div>
 					</div>
 				</div>
-			</div>
-		</f:for>
-	</div>
+			</f:for>
+		</div>
 
-	<f:link.action action="clearAll" class="btn btn-danger" title="{f:translate(key: 'mod.actionclearall')}">
-		<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actionclearall')}
-	</f:link.action>
-</f:section>
+		<f:link.action action="clearAll" class="btn btn-danger" title="{f:translate(key: 'mod.actionclearall')}">
+			<span class="t3-icon fa fa-exclamation-triangle"> </span> {f:translate(key: 'mod.actionclearall')}
+		</f:link.action>
+	</f:section>
+
+</html>
